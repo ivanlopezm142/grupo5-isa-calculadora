@@ -33,6 +33,15 @@ jobs:
     - name: Build with Gradle Wrapper
       run: ./gradlew build
 
+    - name: Run Coverage
+      run: ./gradlew testCodeCoverageReport
+
+    - name: Publish Test Report
+      uses: mikepenz/action-junit-report@v4
+      if: success() || failure()
+      with:
+        report_paths: '**/build/test-results/test/TEST-*.xml'
+
   dependency-submission:
 
     runs-on: ubuntu-latest

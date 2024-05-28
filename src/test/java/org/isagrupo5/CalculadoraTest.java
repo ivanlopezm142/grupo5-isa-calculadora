@@ -78,12 +78,12 @@ public class CalculadoraTest {
 
     @Test
     public void testDivisionPosNeg(){
-        Assertions.assertEquals(0.25, calculadoraTest.division(2.0, -8), "La división de 2.0 y -8 debería ser -0.25");
+        Assertions.assertEquals(-0.25, calculadoraTest.division(2.0, -8), "La división de 2.0 y -8 debería ser -0.25");
     }
 
     @Test
     public void testDivisionInt(){
-        Assertions.assertEquals(10, calculadoraTest.division(2, 5), "La división de 2 y 5 debería ser 0.4");
+        Assertions.assertEquals(0.4, calculadoraTest.division(2, 5), "La división de 2 y 5 debería ser 0.4");
     }
 
     @Test
@@ -93,25 +93,32 @@ public class CalculadoraTest {
         //El resultado de la calculadora debería estar entre ambos
         //Anterior: 0.594
         //Posterior: 0.596
-        Assertions.assertTrue("Error, el resultado es demasiado alto.",  0.596 >= calculadoraTest.division(2.5, 4.2));
-        Assertions.assertTrue("Error, el resultado es demasiado bajo.",  0.594 < calculadoraTest.division(2.5, 4.2));
+        Assertions.assertTrue(0.596 >= calculadoraTest.division(2.5, 4.2), "Error, el resultado es demasiado alto.");
+        Assertions.assertTrue(0.594 < calculadoraTest.division(2.5, 4.2), "Error, el resultado es demasiado bajo.");
     }
 
     @Test
     public void testDivisionFloat(){
         //Comprobamos que la calculadora no permite la introducción de números negativos, dando una excepción
-        Assertions.assertEquals(5.0f, calculadoraTest.division(-2), "La división de 20f y 4.0f debería ser 5f");
+        Assertions.assertEquals(5.0f, calculadoraTest.division(20f, 4.0f), "La división de 20f y 4.0f debería ser 5f");
+    }
+
+    @Test
+    public void testDivisionCero(){
+        Exception exception = Assertions.assertThrows(ArithmeticException.class, () -> {calculadoraTest.division(2,0);});
+        String mensajeError = "dividir por cero";
+        String mensajeSalida = exception.getMessage();
+        Assertions.assertTrue(mensajeSalida.contains(mensajeError));
     }
 
 
     //Bloque raíz cuadrada
-
     @Test
     public void testRaizNeg(){
-        //Cuando se programe la raíz cuadrada, hacer una excepción personalizada llamada "ExceptionNumNegativo" que se usará aquí
+        //Cuando se programe la raíz cuadrada, hacer una excepción personalizada llamada "ArithmeticException" que se usará aquí
         //Además de un mensaje del estilo: "No se permiten números negativos"
-        Exception exception = Assertions.assertThrows(ExceptionNumNegativo.class, () -> {calculadoraTest.raizCuadrada(-8);});
-        String mensajeError = "números negativos";
+        Exception exception = Assertions.assertThrows(ArithmeticException.class, () -> {calculadoraTest.raizCuadrada(-8);});
+        String mensajeError = "número negativo";
         String mensajeSalida = exception.getMessage();
         Assertions.assertTrue(mensajeSalida.contains(mensajeError));
     }
@@ -128,24 +135,8 @@ public class CalculadoraTest {
         //El resultado de la calculadora debería estar entre ambos
         //Anterior: 5.478
         //Posterior: 5.476
-        Assertions.assertTrue("Error, el resultado es demasiado alto.",  5.478 >= calculadoraTest.raizCuadrada(30));
-        Assertions.assertTrue("Error, el resultado es demasiado bajo.",  5.476 < calculadoraTest.raizCuadrada(30));
+        Assertions.assertTrue(5.478 >= calculadoraTest.raizCuadrada(30), "Error, el resultado es demasiado alto.");
+        Assertions.assertTrue(5.476 < calculadoraTest.raizCuadrada(30), "Error, el resultado es demasiado bajo.");
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 }
