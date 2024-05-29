@@ -67,6 +67,10 @@ public class Calculadora {
         for (int i = 0; i < 3; i++) {
             factor *= 10;
         }
-        return (double)((int)(valor * factor + 0.5)) / factor;
+        if (valor >= 0) {
+            return (double) ((int) (valor * factor + 0.5)) / factor;
+        } else {
+            return (double) ((int) (valor * factor - 0.5)) / factor;
+        }
     }
 }
