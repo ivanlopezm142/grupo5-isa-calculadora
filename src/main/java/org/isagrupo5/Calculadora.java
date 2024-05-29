@@ -4,17 +4,20 @@ public class Calculadora {
 
     // Método para sumar dos números
     public double sumar(double numero1, double numero2) {
-        return numero1 + numero2;
+        double resultado = numero1 + numero2;
+        return redondear(resultado);
     }
 
     // Método para restar dos números
     public double resta(double numero1, double numero2) {
-        return numero1 - numero2;
+        double resultado = numero1 - numero2;
+        return redondear(resultado);
     }
 
     // Método para multiplicar dos números
     public double multiplicacion(double numero1, double numero2) {
-        return numero1 * numero2;
+        double resultado = numero1 * numero2;
+        return redondear(resultado);
     }
 
     // Método para dividir dos números
@@ -22,7 +25,8 @@ public class Calculadora {
         if (numero2 == 0) {
             throw new ArithmeticException("No se puede dividir por cero");
         }
-        return numero1 / numero2;
+        double resultado = numero1 / numero2;
+        return redondear(resultado);
     }
 
     // Método para calcular la raíz cuadrada usando la aproximación de Bakhshali
@@ -53,6 +57,16 @@ public class Calculadora {
         double A = N + P;
 
         // Calcular sqrt(número)
-        return A - ((P * P) / (2.0 * A));
+        double resultado = A - ((P * P) / (2.0 * A));
+        return redondear(resultado);
+    }
+
+    //Método para redondear a 10^-3
+    private double redondear(double valor) {
+        int factor = 1;
+        for (int i = 0; i < 3; i++) {
+            factor *= 10;
+        }
+        return (double)((int)(valor * factor + 0.5)) / factor;
     }
 }
