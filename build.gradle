@@ -1,6 +1,7 @@
 plugins {
     id 'java'
     id 'jacoco-report-aggregation'
+    id 'application'
 }
 
 group = 'org.isagrupo5'
@@ -13,10 +14,22 @@ repositories {
 compileJava.options.encoding = 'UTF-8'
 compileTestJava.options.encoding = 'UTF-8'
 
+jar {
+    manifest {
+        attributes(
+                'Main-Class': 'org.isagrupo5.CalculadoraGUI'
+        )
+    }
+}
+
 
 dependencies {
     testImplementation platform('org.junit:junit-bom:5.10.0')
     testImplementation 'org.junit.jupiter:junit-jupiter'
+}
+
+application {
+    mainClass = 'org.isagrupo5.CalculadoraGUI'
 }
 
 test {
